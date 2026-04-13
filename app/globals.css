@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0A0A0F;
+  --bg-secondary: #12121A;
+  --bg-elevated: #1A1A25;
+
+  --text-primary: #E8E6E3;
+  --text-secondary: #8A8A9A;
+  --text-muted: #5A5A6A;
+
+  --color-education: #FF6B4A;
+  --color-economy: #4AAFFF;
+  --color-demographics: #FFD84A;
+  --color-military: #4AFF8B;
+
+  --accent: #FF6B4A;
+  --accent-hover: #FF8A6A;
+
+  --edge-weak: rgba(255, 255, 255, 0.05);
+  --edge-strong: rgba(255, 107, 74, 0.4);
+}
+
+html {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Heebo', system-ui, sans-serif;
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.number,
+[data-number] {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+}
+
+.ltr {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+::selection {
+  background: var(--accent);
+  color: #0A0A0F;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-elevated);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* D3 charts need LTR axes while parent is RTL */
+.chart-container svg {
+  direction: ltr;
+}
+
+.hero-gradient {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 107, 74, 0.08) 0%,
+    transparent 60%
+  );
+}
+
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: var(--bg-elevated);
+}
