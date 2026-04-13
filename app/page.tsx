@@ -51,7 +51,7 @@ export default function HomePage() {
           <div className="flex items-baseline justify-between flex-wrap gap-2">
             <h2 className="text-2xl sm:text-3xl font-bold">מפת הצמתים</h2>
             <div className="text-xs text-text-muted">
-              לחץ על צומת לפרטים · גרור וסובב
+              לחץ על צומת לפרטים · העבר עכבר למידע נוסף
             </div>
           </div>
         </div>

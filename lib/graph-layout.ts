@@ -2,56 +2,6 @@ import { forceSimulation, forceLink, forceManyBody, forceCenter } from 'd3-force
 import type { ProblemNode } from '@/data/nodes';
 import type { Edge } from '@/data/edges';
 
-export interface LaidOutNode {
-  id: string;
-  x: number;
-  y: number;
-  z: number;
-  node: ProblemNode;
-}
-
-// פריסה דטרמיניסטית של צמתים במרחב 3D
-export function computeLayout3D(
-  nodes: ProblemNode[],
-  edges: Edge[]
-): LaidOutNode[] {
-  const simNodes = nodes.map((n, i) => {
-    // seed עמדה התחלתית עם נקודות על גוף כדורי (Fibonacci sphere)
-    const phi = Math.acos(1 - (2 * (i + 0.5)) / nodes.length);
-    const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-    const r = 8;
-    return {
-      id: n.id,
-      x: r * Math.sin(phi) * Math.cos(theta),
-      y: r * Math.sin(phi) * Math.sin(theta),
-      z: r * Math.cos(phi),
-      node: n
-    };
-  });
-
-  const simLinks = edges.map(e => ({
-    source: e.from,
-    target: e.to,
-    strength: e.strength
-  }));
-
-  const sim = forceSimulation(simNodes, 3)
-    .force(
-      'link',
-      forceLink(simLinks)
-        .id((d: any) => d.id)
-        .distance((l: any) => 12 - l.strength)
-        .strength(0.6)
-    )
-    .force('charge', forceManyBody().strength(-220))
-    .force('center', forceCenter(0, 0, 0))
-    .stop();
-
-  for (let i = 0; i < 150; i++) sim.tick();
-
-  return simNodes as LaidOutNode[];
-}
-
 export function computeLayout2D(
   nodes: ProblemNode[],
   edges: Edge[],
