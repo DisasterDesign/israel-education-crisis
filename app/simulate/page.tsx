@@ -1,19 +1,31 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import clsx from 'clsx';
 import { ParameterSlider } from '@/components/simulate/ParameterSlider';
 import { ImpactChart } from '@/components/simulate/ImpactChart';
 import { AssumptionPanel } from '@/components/simulate/AssumptionPanel';
 import { simulate, DEFAULT_PARAMS, type SimulationParams } from '@/lib/simulation-engine';
-import { PARAMETER_RANGES, PARAMETER_LABELS } from '@/data/simulations';
+import {
+  PARAMETER_RANGES,
+  PARAMETER_LABELS,
+  SCENARIO_PRESETS
+} from '@/data/simulations';
 
 export default function SimulatePage() {
   const [params, setParams] = useState<SimulationParams>(DEFAULT_PARAMS);
+  const [activePreset, setActivePreset] = useState<string | null>('status_quo');
 
   const output = useMemo(() => simulate(params), [params]);
 
   const update = <K extends keyof SimulationParams>(key: K, value: number) => {
     setParams(p => ({ ...p, [key]: value }));
+    setActivePreset(null);
+  };
+
+  const applyPreset = (preset: (typeof SCENARIO_PRESETS)[number]) => {
+    setParams(preset.params);
+    setActivePreset(preset.id);
   };
 
   return (
@@ -31,11 +43,55 @@ export default function SimulatePage() {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-10">
-        <div className="space-y-8">
-          <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted">
-            משתנים
-          </h2>
+      <div className="mb-10">
+        <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted mb-3">
+          תרחישים מוכנים
+        </h2>
+        <div className="grid sm:grid-cols-3 gap-3">
+          {SCENARIO_PRESETS.map(preset => {
+            const active = activePreset === preset.id;
+            return (
+              <button
+                key={preset.id}
+                onClick={() => applyPreset(preset)}
+                className={clsx(
+                  'card rounded-lg p-4 text-right transition-all',
+                  active
+                    ? 'border-accent/60 bg-bg-elevated'
+                    : 'hover:border-white/20'
+                )}
+              >
+                <div
+                  className={clsx(
+                    'text-sm font-bold mb-1',
+                    active ? 'text-accent' : 'text-text-primary'
+                  )}
+                >
+                  {preset.label}
+                </div>
+                <div className="text-[11px] text-text-muted leading-snug">
+                  {preset.description}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        <div className="card rounded-lg p-6 space-y-8">
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted">
+              קלט · משתנים
+            </h2>
+            <button
+              onClick={() => applyPreset(SCENARIO_PRESETS[0])}
+              className="text-[11px] text-text-muted hover:text-accent transition-colors"
+            >
+              אפס למצב נוכחי
+            </button>
+          </div>
+
           <ParameterSlider
             label={PARAMETER_LABELS.harediBagrut}
             value={params.harediBagrut}
@@ -71,17 +127,11 @@ export default function SimulatePage() {
             unit="%"
             onChange={v => update('coreCurriculumFunding', v)}
           />
-          <button
-            onClick={() => setParams(DEFAULT_PARAMS)}
-            className="text-xs text-text-muted hover:text-accent"
-          >
-            ← אפס ערכים
-          </button>
         </div>
 
         <div className="space-y-4">
           <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted">
-            השפעה על המערכת (עד 2050)
+            פלט · השפעה על המערכת עד 2050
           </h2>
           <ImpactChart
             label="שיעור בגרות ארצי"
@@ -116,17 +166,19 @@ export default function SimulatePage() {
             valence="positive"
           />
 
-          <div className="pt-3 border-t border-white/5 flex justify-between items-center text-xs">
-            <span className="text-text-muted">מקדם התכנסות</span>
-            <span className="font-mono ltr" data-number>
-              {output.convergenceFactor}
-            </span>
-          </div>
-          <div className="flex justify-between items-center text-xs">
-            <span className="text-text-muted">זמן לתוצאה מלאה</span>
-            <span className="font-mono ltr" data-number>
-              {output.timeline} שנים
-            </span>
+          <div className="card rounded-lg p-4 space-y-2">
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-text-muted">מקדם התכנסות</span>
+              <span className="font-mono ltr text-sm text-text-primary" data-number>
+                {output.convergenceFactor}
+              </span>
+            </div>
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-text-muted">זמן לתוצאה מלאה</span>
+              <span className="font-mono ltr text-sm text-text-primary" data-number>
+                {output.timeline} שנים
+              </span>
+            </div>
           </div>
         </div>
       </div>

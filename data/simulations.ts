@@ -41,3 +41,51 @@ export const PARAMETER_LABELS: Record<string, string> = {
   arabPISA: 'ציון PISA ערבי',
   coreCurriculumFunding: 'אחוז תקציב ליבה חרדי'
 };
+
+export interface ScenarioPreset {
+  id: 'status_quo' | 'optimistic' | 'extreme';
+  label: string;
+  description: string;
+  params: {
+    harediBagrut: number;
+    harediMaleEmployment: number;
+    arabPISA: number;
+    coreCurriculumFunding: number;
+  };
+}
+
+export const SCENARIO_PRESETS: ScenarioPreset[] = [
+  {
+    id: 'status_quo',
+    label: 'המשך מגמה',
+    description: 'הערכים הנוכחיים (2024-2025) ממשיכים ללא שינוי מדיניות',
+    params: {
+      harediBagrut: 16,
+      harediMaleEmployment: 54,
+      arabPISA: 400,
+      coreCurriculumFunding: 17
+    }
+  },
+  {
+    id: 'optimistic',
+    label: 'תרחיש מתון',
+    description: 'שיפור הדרגתי — ליבה חלקית, בגרות עולה, תעסוקה מתקרבת לממוצע',
+    params: {
+      harediBagrut: 45,
+      harediMaleEmployment: 70,
+      arabPISA: 440,
+      coreCurriculumFunding: 55
+    }
+  },
+  {
+    id: 'extreme',
+    label: 'תרחיש קיצוני',
+    description: 'שינוי מבני מלא — ליבה חובה, תעסוקה לפי היעד, פער PISA נסגר כמעט לחלוטין',
+    params: {
+      harediBagrut: 80,
+      harediMaleEmployment: 85,
+      arabPISA: 480,
+      coreCurriculumFunding: 95
+    }
+  }
+];

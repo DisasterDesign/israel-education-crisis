@@ -21,9 +21,9 @@ export function ParameterSlider({
 }: Props) {
   return (
     <div className="space-y-2">
-      <div className="flex justify-between items-baseline">
+      <div className="flex justify-between items-baseline gap-3">
         <label className="text-sm text-text-secondary">{label}</label>
-        <span className="text-2xl font-black ltr" data-number>
+        <span className="text-3xl sm:text-4xl font-black ltr text-accent leading-none" data-number>
           {value}
           {unit}
         </span>
