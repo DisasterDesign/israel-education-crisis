@@ -82,6 +82,9 @@ export function NetworkGraph2D({ onHover }: Props) {
 
         {layout.map(l => {
           const r = 8 + l.node.severity * 1.8;
+          const shortTitle = l.node.title.split(' — ')[0];
+          const label =
+            shortTitle.length > 18 ? shortTitle.slice(0, 17) + '…' : shortTitle;
           return (
             <g
               key={l.id}
@@ -107,15 +110,13 @@ export function NetworkGraph2D({ onHover }: Props) {
               />
               <text
                 textAnchor="middle"
-                y={r + 14}
-                fontSize="10"
+                y={r + 15}
+                fontSize="11"
                 fill="var(--text-primary)"
                 direction="rtl"
                 style={{ pointerEvents: 'none', fontFamily: 'Heebo, sans-serif' }}
               >
-                {l.node.titleEn.length > 22
-                  ? l.node.titleEn.slice(0, 20) + '…'
-                  : l.node.titleEn}
+                {label}
               </text>
             </g>
           );

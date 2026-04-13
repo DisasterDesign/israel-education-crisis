@@ -32,7 +32,7 @@ export default function SimulatePage() {
     <div className="max-w-6xl mx-auto px-6 py-16">
       <div className="mb-12 max-w-3xl">
         <div className="text-xs font-mono text-accent tracking-widest mb-4">
-          SIMULATE
+          סימולציה
         </div>
         <h1 className="text-4xl sm:text-5xl font-black leading-tight tracking-tight">
           משוך חוט

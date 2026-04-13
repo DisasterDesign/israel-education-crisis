@@ -3,7 +3,7 @@ export default function AboutPage() {
     <div className="max-w-3xl mx-auto px-6 py-16">
       <div className="mb-12">
         <div className="text-xs font-mono text-accent tracking-widest mb-4">
-          ABOUT
+          אודות
         </div>
         <h1 className="text-4xl sm:text-5xl font-black leading-tight tracking-tight">
           על הפרויקט
