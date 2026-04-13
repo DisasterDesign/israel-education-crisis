@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { NODES, getNodeBySlug, CATEGORY_LABELS } from '@/data/nodes';
+import { NODE_INSIGHTS } from '@/data/node-insights';
+import { SOURCES } from '@/data/sources';
 import { KPICard } from '@/components/node/KPICard';
 import { ConnectionList } from '@/components/node/ConnectionList';
 import { DataChart } from '@/components/node/DataChart';
@@ -23,13 +25,36 @@ export default function NodePage({ params }: { params: { slug: string } }) {
   const node = getNodeBySlug(params.slug);
   if (!node) notFound();
 
+  const insight = NODE_INSIGHTS[node.id];
+  const insightSource = insight ? SOURCES[insight.source] : null;
+
   return (
-    <article className="max-w-6xl mx-auto px-6 py-16">
+    <article className="max-w-6xl mx-auto px-6 py-12">
+      <nav
+        aria-label="breadcrumb"
+        className="flex items-center flex-wrap gap-2 text-xs text-text-muted mb-6"
+      >
+        <Link href="/" className="hover:text-accent transition-colors">
+          מפה
+        </Link>
+        <span className="text-white/20">/</span>
+        <span className="inline-flex items-center gap-1.5">
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ background: `var(--color-${node.category})` }}
+          />
+          {CATEGORY_LABELS[node.category]}
+        </span>
+        <span className="text-white/20">/</span>
+        <span className="text-text-secondary">{node.title}</span>
+      </nav>
+
       <Link
         href="/"
-        className="inline-flex items-center gap-1 text-xs text-text-muted hover:text-accent mb-8"
+        className="inline-flex items-center gap-2 text-xs text-text-muted hover:text-accent mb-10 transition-colors"
       >
-        → חזרה למפה
+        <span>←</span>
+        חזרה למפה
       </Link>
 
       <header className="mb-12 max-w-3xl">
@@ -63,6 +88,36 @@ export default function NodePage({ params }: { params: { slug: string } }) {
           ))}
         </div>
       </section>
+
+      {insight && insightSource && (
+        <section className="mb-16">
+          <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted mb-5">
+            התובנה המרכזית במחקר
+          </h2>
+          <blockquote className="card rounded-lg p-6 sm:p-8 border-r-2 border-accent">
+            <p className="text-lg sm:text-xl leading-relaxed text-text-primary font-medium">
+              {insight.quote}
+            </p>
+            <footer className="mt-5 text-xs text-text-muted">
+              מתוך{' '}
+              {insightSource.file ? (
+                <a
+                  href={insightSource.file}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-accent hover:underline"
+                >
+                  {insightSource.label}
+                </a>
+              ) : (
+                <span className="text-text-secondary">{insightSource.label}</span>
+              )}
+              {' · '}
+              <span data-number>{insightSource.year}</span>
+            </footer>
+          </blockquote>
+        </section>
+      )}
 
       <section className="mb-16">
         <h2 className="text-xs font-mono uppercase tracking-widest text-text-muted mb-5">

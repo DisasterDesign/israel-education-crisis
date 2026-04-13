@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6 py-10 grid gap-8 sm:grid-cols-3">
+    <footer className="mt-24 border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6 pt-14 pb-10 grid gap-10 sm:grid-cols-3">
         <div>
           <div className="text-sm font-bold mb-2">רשת</div>
           <p className="text-xs text-text-muted leading-relaxed max-w-xs">

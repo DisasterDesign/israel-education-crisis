@@ -1,8 +1,17 @@
 import { SOURCES } from '@/data/sources';
 
-const RESEARCH_PAPERS = [
+interface ResearchPaper {
+  sourceId: 'paradox' | 'demographic' | 'idf' | 'reform' | 'ai' | 'agency';
+  title: string;
+  summary: string;
+  keyFindings: string[];
+  pages: number;
+  sizeKb: number;
+}
+
+const RESEARCH_PAPERS: ResearchPaper[] = [
   {
-    sourceId: 'paradox' as const,
+    sourceId: 'paradox',
     title: 'הפרדוקס הישראלי: חינוך בינוני, כלכלה של קצוות',
     summary:
       'מחקר עומק בעברית שמנתח את הפער בין רמת החינוך הממוצעת (בינונית בקנה מידה עולמי) לבין מבנה כלכלה של קצוות — ריכוז תפוקה ומס במיעוט מהאוכלוסייה. מכסה את ההרכב הדמוגרפי, תקציבי ליבה, ופערי בגרות בין המגזרים.',
@@ -10,64 +19,81 @@ const RESEARCH_PAPERS = [
       '84% מהבנים החרדים לומדים ללא ליבה',
       'העשירון העליון משלם 46% מהמס',
       '11.5% גידול שנתי בתקציב חינוך חרדי ללא תנאי ליבה'
-    ]
+    ],
+    pages: 6,
+    sizeKb: 445
   },
   {
-    sourceId: 'demographic' as const,
-    title: "Israel's Demographic Transformation",
+    sourceId: 'demographic',
+    title: 'השינוי הדמוגרפי של ישראל',
     summary:
       'מחקר על השינוי הדמוגרפי המבני של ישראל ב-25 השנים הקרובות. פורס תחזיות לשיעור הגידול של החברה החרדית והערבית, ולהשפעות על הכלכלה וחינוך הליבה.',
     keyFindings: [
       '23.8% חרדים בכיתה א׳ (2025)',
       'תחזית של 31% חרדים באוכלוסייה ב-2050',
       '42,751 תלמידים חרדים בקוהורט'
-    ]
+    ],
+    pages: 6,
+    sizeKb: 521
   },
   {
-    sourceId: 'idf' as const,
-    title: "The IDF as Israel's Hidden Workforce Engine",
+    sourceId: 'idf',
+    title: 'הצבא כמנוע כוח העבודה הסמוי של ישראל',
     summary:
       'ניתוח של תפקיד הצבא כמחוללת כלכלית ומיינת קריירות. מסביר איך 8200 ויחידות טכנולוגיות הפכו לצינור ההייטק של ישראל, ואיך הפטור ההמוני מצבא יוצר סיכון עבודה חדש.',
     keyFindings: [
       '25% מעובדי ההייטק בוגרי 8200',
       '49% תעסוקת גברים חרדים מול 76% לא-חרדים',
       '7,000-10,000 בוגרי יחידות טכנולוגיות בשנה'
-    ]
+    ],
+    pages: 5,
+    sizeKb: 418
   },
   {
-    sourceId: 'reform' as const,
-    title: 'What Works in Large-Scale Education Reform',
+    sourceId: 'reform',
+    title: 'מה באמת עובד ברפורמות חינוך רחבות היקף',
     summary:
       'מטא-אנליזה של רפורמות בחינוך ברחבי העולם. מצביע על תקופות זמן קריטיות, תנאי הצלחה, ולמה רוב הרפורמות נכשלות — לא בגלל התוכן, אלא בגלל המסגרת הפוליטית.',
     keyFindings: [
       'רפורמה דרשה בממוצע 10 שנים לאפקט מדיד',
       'שינויי מבנה > שינויי תוכנית',
       'אוטונומיה למנהלים = אפקט חזק במיוחד'
-    ]
+    ],
+    pages: 11,
+    sizeKb: 699
   },
   {
-    sourceId: 'ai' as const,
-    title: 'AI in Education: What We Know, What We Guess',
+    sourceId: 'ai',
+    title: 'בינה מלאכותית בחינוך — מה ידוע ומה מנחשים',
     summary:
-      'סקירת נתוני RCTs על שימוש ב-AI בחינוך. ההבדל המהותי: תלמידים בהדרכה מובנית = +1.3 SD. תלמידים בשימוש חופשי = -17% בתוצאה. כלי אחד, שני עולמות.',
+      'סקירת נתוני RCTs על שימוש ב-AI בחינוך. ההבדל המהותי: תלמידים בהדרכה מובנית = +1.3 SD. תלמידים בשימוש חופשי = −17% בתוצאה. כלי אחד, שני עולמות.',
     keyFindings: [
       '+1.3 SD עם הדרכה (Khan Academy)',
       '−17% ללא הדרכה',
       'פער הישגים גדל עם AI חופשי'
-    ]
+    ],
+    pages: 8,
+    sizeKb: 535
   },
   {
-    sourceId: 'agency' as const,
-    title: 'Student Agency as an Educational Goal',
+    sourceId: 'agency',
+    title: 'סוכנות התלמיד כיעד חינוכי',
     summary:
       'סינתזת מחקר על "סוכנות תלמיד" — היכולת ללמוד עצמאית. מראה שהגודל של האפקט (d = 0.40) מקביל לאיכות מורים במערכות מצליחות. משמעות: זה לא "רך" — זו תשתית הישג.',
     keyFindings: [
       'אפקט סוכנות: d = 0.40',
       'אוטונומיה תלמיד: d = 0.52',
       'יתרון בטחון עצמי: +0.21'
-    ]
+    ],
+    pages: 9,
+    sizeKb: 558
   }
 ];
+
+function formatSize(kb: number): string {
+  if (kb < 1024) return `${kb} KB`;
+  return `${(kb / 1024).toFixed(1)} MB`;
+}
 
 export default function ResearchPage() {
   return (
@@ -92,13 +118,27 @@ export default function ResearchPage() {
               key={paper.sourceId}
               className="card rounded-lg p-6 sm:p-8"
             >
-              <header className="flex items-start justify-between gap-4 mb-4">
-                <h2 className="text-xl sm:text-2xl font-bold leading-snug">
-                  {paper.title}
-                </h2>
-                <span className="text-xs font-mono text-text-muted ltr shrink-0">
-                  {source.year}
-                </span>
+              <header className="mb-4">
+                <div className="flex items-start justify-between gap-4 mb-3">
+                  <h2 className="text-xl sm:text-2xl font-bold leading-snug">
+                    {paper.title}
+                  </h2>
+                </div>
+                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-text-muted">
+                  <span className="ltr" data-number>
+                    {source.year}
+                  </span>
+                  <span>·</span>
+                  <span className="ltr" data-number>
+                    {paper.pages} עמודים
+                  </span>
+                  <span>·</span>
+                  <span className="ltr" data-number>
+                    {formatSize(paper.sizeKb)}
+                  </span>
+                  <span>·</span>
+                  <span>PDF</span>
+                </div>
               </header>
 
               <p className="text-sm text-text-secondary leading-relaxed mb-5">
@@ -127,9 +167,10 @@ export default function ResearchPage() {
                   href={source.file}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-accent hover:underline"
+                  className="inline-flex items-center gap-2 text-xs bg-accent text-bg-primary px-4 py-2 rounded font-bold hover:bg-accent-hover transition-colors"
                 >
-                  ← הורד PDF מלא
+                  הורד PDF מלא
+                  <span>↓</span>
                 </a>
               )}
             </article>

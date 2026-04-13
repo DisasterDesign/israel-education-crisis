@@ -15,31 +15,31 @@ export const SOURCES: Record<string, Source> = {
   },
   demographic: {
     id: 'demographic',
-    label: "Israel's Demographic Transformation",
+    label: 'השינוי הדמוגרפי של ישראל',
     year: 2025,
     file: '/research/demographic-transformation.pdf'
   },
   idf: {
     id: 'idf',
-    label: "The IDF as Israel's Hidden Workforce Engine",
+    label: 'הצבא כמנוע כוח העבודה הסמוי של ישראל',
     year: 2025,
     file: '/research/idf-workforce.pdf'
   },
   reform: {
     id: 'reform',
-    label: 'What Works in Large-Scale Education Reform',
+    label: 'מה באמת עובד ברפורמות חינוך',
     year: 2024,
     file: '/research/reform-evidence.pdf'
   },
   ai: {
     id: 'ai',
-    label: 'AI in Education: What We Know, What We Guess',
+    label: 'בינה מלאכותית בחינוך',
     year: 2024,
     file: '/research/ai-education.pdf'
   },
   agency: {
     id: 'agency',
-    label: 'Student Agency as an Educational Goal',
+    label: 'סוכנות התלמיד כיעד חינוכי',
     year: 2024,
     file: '/research/student-agency.pdf'
   },
